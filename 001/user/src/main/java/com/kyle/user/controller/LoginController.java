@@ -1,19 +1,15 @@
 package com.kyle.user.controller;
 
 import com.kyle.mycommon.response.MyResponse;
-import com.kyle.mycommon.response.ResultData;
 import com.kyle.mycommon.router.RouterAttribute;
-import com.kyle.user.entity.UserInfo;
-import com.kyle.user.service.UserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author yangkaile
@@ -23,12 +19,12 @@ import javax.annotation.Resource;
 public class LoginController {
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    @Resource
-    private UserInfoService userInfoService;
-
     @RouterAttribute(id=1,name = "",description = "")
     @RequestMapping(value = "/login",method = RequestMethod.GET)
-    ResponseEntity login(){
+    ResponseEntity login(HttpServletRequest request){
+        logger.info("Receive Request: url:"+ request.getRequestURI()
+                + " addr:" + request.getRemoteAddr() + " port:" + request.getRemotePort()
+                + " host:" + request.getRemoteHost());
         return MyResponse.ok();
     }
 }

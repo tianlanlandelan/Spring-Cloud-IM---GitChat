@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author yangkaile
  * @date 2019-04-16 11:08:09
- *
+ * 实现基本的RabbitMQ配置
  */
 @Configuration
 public class RabbitConfig {

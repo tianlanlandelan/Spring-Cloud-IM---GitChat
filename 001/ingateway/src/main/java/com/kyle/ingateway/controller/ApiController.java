@@ -14,24 +14,45 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/application")
+/**
+ * @author yangkaile
+ * @date 2019-05-08 16:25:17
+ * 用于测试的ApiController
+ */
 public class ApiController {
+    /**
+     * 导入DiscoveryClient用于发现Consul注册的服务
+     */
     @Autowired
     DiscoveryClient discoveryClient;
+
+    /**
+     * 导入LoadBalancerClient用于从Consul注册的服务中选择一个实例
+     */
     @Autowired
     private LoadBalancerClient loadBalancer;
 
+    /**
+     * 导入RestTemplate用于访问RESUFul API
+     */
     @Resource
     RestTemplate restTemplate;
+
     /**
-     * 获取所有服务
+     * 获取Consul注册的所有服务
      */
     @RequestMapping(value = "/services",method = RequestMethod.GET)
     public Object services() {
         return discoveryClient.getServices();
     }
 
-    @RequestMapping(value = "/relay")
-    public ResponseEntity relay(){
+
+    /**
+     * 从Consul注册的服务中选择一个实例，发送RESTFul请求
+     * @return
+     */
+    @RequestMapping(value = "/relayTest")
+    public ResponseEntity relayTest(){
         ServiceInstance serviceInstance = loadBalancer.choose("User");
         System.out.println("服务地址：" + serviceInstance.getUri());
         System.out.println("服务名称：" + serviceInstance.getServiceId());
